@@ -27,6 +27,9 @@ const timer = setInterval(() => {
   spinner.text = `${chalk.bold.red('FOCUSING')}[${chalk.cyan(timeStr)}]`;
 
   if (seconds <= 0) {
+    if (process.env.NODE_ENV == 'test') {
+      console.log('[DEBUG] Audio Ended');
+    }
     spinner.stop();
     clearInterval(timer);
     spinner.succeed(chalk.bold.green('Time is up! Take a break. '));
