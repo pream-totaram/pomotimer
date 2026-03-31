@@ -1,3 +1,4 @@
+#!/bin/env node
 import chalk from 'chalk';
 import ora from 'ora';
 import { program } from 'commander';
@@ -13,6 +14,10 @@ let mins = parseInt(options.mins) ?? 25;
 const pomo = new PomoTimer(mins * 60);
 
 pomo.start();
+if (process.env.NODE_ENV == 'test') {
+  console.log('[DEBUG] Audio Started');
+}
+
 const spinner = ora(`${chalk.bold.red('Starting Session')}`).start();
 const timer = setInterval(() => {
   const seconds = pomo.getRemainingSeconds();
