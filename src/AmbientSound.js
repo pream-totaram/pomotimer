@@ -8,4 +8,8 @@ export class AmbientSound {
   stop() {
     throw new Error("This method must be implemented")
   }
+
+  getFilePath() {
+    throw new Error("This method must be implemented")
+  }
 }
