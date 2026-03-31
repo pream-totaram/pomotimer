@@ -1,15 +1,30 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const playSound = require('play-sound');
+
 export class AmbientSound {
-  constructor(filepath) { }
+  constructor(filepath) {
+    this.filepath = filepath;
+    this.player = playSound();
+    this.process = null;
+  }
 
   play() {
-    throw new Error("This method must be implemented")
+    this.process = this.player.play(this.filepath, (err) => {
+      if (err && !err.killed) {
+        // ignore errors (e.g., no audio player available)
+      }
+    });
   }
 
   stop() {
-    throw new Error("This method must be implemented")
+    if (this.process) {
+      this.process.kill();
+      this.process = null;
+    }
   }
 
   getFilePath() {
-    throw new Error("This method must be implemented")
+    return this.filepath;
   }
 }
